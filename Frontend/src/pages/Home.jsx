@@ -80,7 +80,7 @@ const Home = () => {
       {/* Background */}
       <div 
         className="fixed inset-0 bg-cover bg-center bg-no-repeat z-0"
-        style={{ backgroundImage: "url('/src/assets/HomeBackground/IMG_9453.jpg')" }}
+        style={{ backgroundImage: "url('src/assets/HomeBackground/IMG_9453.jpg')" }}
       >
         <div className="absolute inset-0 bg-black/70"></div>
       </div>
