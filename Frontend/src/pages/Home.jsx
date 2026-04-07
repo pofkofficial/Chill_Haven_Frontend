@@ -127,6 +127,8 @@ const Home = () => {
 
               {/* Event Details Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8 md:mb-10">
+  
+                {/* Date */}
                 <div className="flex flex-col items-center p-3 md:p-4 bg-white/5 rounded-xl">
                   <Calendar size={20} className="text-pink-400 mb-2" />
                   <p className="text-pink-300 text-xs md:text-sm">DATE</p>
@@ -136,21 +138,37 @@ const Home = () => {
                     })}
                   </p>
                 </div>
+
+                {/* Time - Extracted from event.date */}
                 <div className="flex flex-col items-center p-3 md:p-4 bg-white/5 rounded-xl">
                   <Clock size={20} className="text-pink-400 mb-2" />
                   <p className="text-pink-300 text-xs md:text-sm">TIME</p>
-                  <p className="text-sm md:text-xl font-semibold mt-1">8:00 PM - Morning</p>
+                  <p className="text-sm md:text-xl font-semibold mt-1">
+                    {new Date(event.date).toLocaleTimeString('en-US', { 
+                      hour: 'numeric', 
+                      minute: '2-digit',
+                      hour12: true 
+                    })}
+                  </p>
                 </div>
+
+                {/* Venue */}
                 <div className="flex flex-col items-center p-3 md:p-4 bg-white/5 rounded-xl">
                   <MapPin size={20} className="text-pink-400 mb-2" />
                   <p className="text-pink-300 text-xs md:text-sm">VENUE</p>
-                  <p className="text-sm md:text-xl font-semibold mt-1">The G-HOUSE APARTMENT</p>
+                  <p className="text-sm md:text-xl font-semibold mt-1 text-center">
+                    {event.venue || "The G-HOUSE APARTMENT"}
+                  </p>
                 </div>
+
+                {/* Early Bird */}
                 <div className="flex flex-col items-center p-3 md:p-4 bg-white/5 rounded-xl">
                   <Gift size={20} className="text-pink-400 mb-2" />
                   <p className="text-pink-300 text-xs md:text-sm">EARLY BIRD ENDS</p>
                   <p className="text-sm md:text-xl font-semibold mt-1">
-                    {new Date(event.earlyBirdEnd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                    {new Date(event.earlyBirdEnd).toLocaleDateString('en-US', { 
+                      month: 'short', day: 'numeric' 
+                    })}
                   </p>
                 </div>
               </div>

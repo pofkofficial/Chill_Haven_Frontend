@@ -8,6 +8,7 @@ const EditEventModal = ({ isOpen, onClose, event, onEventUpdated }) => {
     description: '',
     date: '',
     earlyBirdEnd: '',
+    venue: '',
     doubleTicketAvailable: false,
     singleTicket: {
       earlyBirdPrice: '',
@@ -20,6 +21,7 @@ const EditEventModal = ({ isOpen, onClose, event, onEventUpdated }) => {
       maxAvailable: 50
     }
   });
+
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -29,6 +31,7 @@ const EditEventModal = ({ isOpen, onClose, event, onEventUpdated }) => {
         description: event.description || '',
         date: event.date ? new Date(event.date).toISOString().slice(0, 16) : '',
         earlyBirdEnd: event.earlyBirdEnd ? new Date(event.earlyBirdEnd).toISOString().slice(0, 16) : '',
+        venue: event.venue || '',
         doubleTicketAvailable: event.doubleTicketAvailable || false,
         singleTicket: {
           earlyBirdPrice: event.singleTicket?.earlyBirdPrice || '',
@@ -87,7 +90,6 @@ const EditEventModal = ({ isOpen, onClose, event, onEventUpdated }) => {
     <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
       <div className="bg-zinc-900 border border-white/20 rounded-2xl md:rounded-3xl w-full max-w-2xl max-h-[95vh] overflow-hidden flex flex-col">
         
-        {/* Header */}
         <div className="flex items-center justify-between p-4 md:p-8 border-b border-white/10">
           <h2 className="text-xl md:text-3xl font-bold text-pink-400">Edit Event</h2>
           <button onClick={onClose} className="text-gray-400 hover:text-white transition">
@@ -95,9 +97,9 @@ const EditEventModal = ({ isOpen, onClose, event, onEventUpdated }) => {
           </button>
         </div>
 
-        {/* Form Content */}
         <div className="flex-1 overflow-y-auto p-4 md:p-8">
           <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+            
             {/* Event Title */}
             <div>
               <label className="block text-xs md:text-sm text-gray-300 mb-1 md:mb-2">Event Title</label>
@@ -106,7 +108,21 @@ const EditEventModal = ({ isOpen, onClose, event, onEventUpdated }) => {
                 name="title"
                 value={formData.title}
                 onChange={handleChange}
-                className="w-full p-3 md:p-4 bg-zinc-800 border border-white/20 rounded-xl md:rounded-2xl text-white focus:outline-none focus:border-pink-500 text-sm md:text-base"
+                className="w-full p-3 md:p-4 bg-zinc-800 border border-white/20 rounded-xl md:rounded-2xl text-white focus:outline-none focus:border-pink-500"
+                required
+              />
+            </div>
+
+            {/* Venue */}
+            <div>
+              <label className="block text-xs md:text-sm text-gray-300 mb-1 md:mb-2">Venue</label>
+              <input
+                type="text"
+                name="venue"
+                value={formData.venue}
+                onChange={handleChange}
+                placeholder="e.g. The G-HOUSE APARTMENT"
+                className="w-full p-3 md:p-4 bg-zinc-800 border border-white/20 rounded-xl md:rounded-2xl text-white focus:outline-none focus:border-pink-500"
                 required
               />
             </div>
@@ -119,7 +135,7 @@ const EditEventModal = ({ isOpen, onClose, event, onEventUpdated }) => {
                 value={formData.description}
                 onChange={handleChange}
                 rows={4}
-                className="w-full p-3 md:p-4 bg-zinc-800 border border-white/20 rounded-xl md:rounded-2xl text-white focus:outline-none focus:border-pink-500 resize-y text-sm md:text-base"
+                className="w-full p-3 md:p-4 bg-zinc-800 border border-white/20 rounded-xl md:rounded-2xl text-white focus:outline-none focus:border-pink-500 resize-y"
                 required
               />
             </div>
@@ -133,7 +149,7 @@ const EditEventModal = ({ isOpen, onClose, event, onEventUpdated }) => {
                   name="date"
                   value={formData.date}
                   onChange={handleChange}
-                  className="w-full p-3 md:p-4 bg-zinc-800 border border-white/20 rounded-xl md:rounded-2xl text-white text-sm md:text-base"
+                  className="w-full p-3 md:p-4 bg-zinc-800 border border-white/20 rounded-xl md:rounded-2xl text-white"
                   required
                 />
               </div>
@@ -144,7 +160,7 @@ const EditEventModal = ({ isOpen, onClose, event, onEventUpdated }) => {
                   name="earlyBirdEnd"
                   value={formData.earlyBirdEnd}
                   onChange={handleChange}
-                  className="w-full p-3 md:p-4 bg-zinc-800 border border-white/20 rounded-xl md:rounded-2xl text-white text-sm md:text-base"
+                  className="w-full p-3 md:p-4 bg-zinc-800 border border-white/20 rounded-xl md:rounded-2xl text-white"
                   required
                 />
               </div>
@@ -187,7 +203,7 @@ const EditEventModal = ({ isOpen, onClose, event, onEventUpdated }) => {
               </div>
             </div>
 
-            {/* Double Ticket Toggle */}
+            {/* Double Ticket Section */}
             <div className="bg-zinc-800/50 p-4 md:p-6 rounded-xl md:rounded-2xl">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-3 md:mb-4">
                 <h3 className="font-bold text-base md:text-lg text-pink-300">Double Ticket</h3>

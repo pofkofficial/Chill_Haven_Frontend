@@ -8,6 +8,7 @@ const CreateEventModal = ({ isOpen, onClose, onEventCreated }) => {
     description: '',
     date: '',
     earlyBirdEnd: '',
+    venue: '',                    // ← Added
     doubleTicketAvailable: false,
     singleTicket: { 
       earlyBirdPrice: '', 
@@ -50,18 +51,21 @@ const CreateEventModal = ({ isOpen, onClose, onEventCreated }) => {
     try {
       await createEvent(eventData);
       alert('Event created successfully!');
-      onEventCreated();
-      onClose();
-
+      
+      // Reset form
       setFormData({
         title: '',
         description: '',
         date: '',
         earlyBirdEnd: '',
+        venue: '',
         doubleTicketAvailable: false,
         singleTicket: { earlyBirdPrice: '', regularPrice: '', maxAvailable: 100 },
         doubleTicket: { earlyBirdPrice: '', regularPrice: '', maxAvailable: 50 }
       });
+
+      onEventCreated();
+      onClose();
     } catch (err) {
       alert(err.response?.data?.msg || 'Failed to create event');
       console.error(err);
@@ -98,6 +102,20 @@ const CreateEventModal = ({ isOpen, onClose, onEventCreated }) => {
                 onChange={handleChange}
                 className="w-full p-3 md:p-4 bg-zinc-800 border border-white/20 rounded-xl md:rounded-2xl text-white focus:outline-none focus:border-pink-500 text-sm md:text-base"
                 placeholder="Chill Haven House Party Edition 5.0"
+                required
+              />
+            </div>
+
+            {/* Venue */}
+            <div>
+              <label className="block text-xs md:text-sm text-gray-300 mb-1 md:mb-2">Venue</label>
+              <input
+                type="text"
+                name="venue"
+                value={formData.venue}
+                onChange={handleChange}
+                placeholder="e.g. The G-HOUSE APARTMENT"
+                className="w-full p-3 md:p-4 bg-zinc-800 border border-white/20 rounded-xl md:rounded-2xl text-white focus:outline-none focus:border-pink-500 text-sm md:text-base"
                 required
               />
             </div>
@@ -181,7 +199,7 @@ const CreateEventModal = ({ isOpen, onClose, onEventCreated }) => {
               </div>
             </div>
 
-            {/* Double Ticket Toggle */}
+            {/* Double Ticket Section */}
             <div className="bg-zinc-800/50 p-4 md:p-6 rounded-xl md:rounded-2xl">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-3 md:mb-4">
                 <h3 className="font-bold text-base md:text-lg text-pink-300">Double Ticket</h3>
@@ -194,7 +212,7 @@ const CreateEventModal = ({ isOpen, onClose, onEventCreated }) => {
                     name="doubleTicketAvailable"
                     checked={formData.doubleTicketAvailable}
                     onChange={handleChange}
-                    className="w-4 h-4 md:w-5 md:h-5 rounded border-white/20 bg-zinc-800 text-pink-600 focus:ring-pink-500 focus:ring-offset-0"
+                    className="w-4 h-4 md:w-5 md:h-5 rounded border-white/20 bg-zinc-800 text-pink-600 focus:ring-pink-500"
                   />
                 </label>
               </div>
