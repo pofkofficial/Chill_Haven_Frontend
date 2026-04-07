@@ -22,6 +22,7 @@ const EventDetail = () => {
   ]);
 
   const publicKey = import.meta.env.VITE_PAYSTACK_PUBLIC;
+  const backend_link = import.meta.env.VITE_BACKEND_LINK;
 
   // Handle Paystack redirect verification
   useEffect(() => {
@@ -36,7 +37,7 @@ const EventDetail = () => {
   const verifyPaymentStatus = async (reference) => {
     setVerifying(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/purchase/verify/${reference}`);
+      const res = await fetch(`${backend_link}/api/purchase/verify/${reference}`);
       const data = await res.json();
 
       if (data.success) {
@@ -227,7 +228,7 @@ const EventDetail = () => {
     <div className="min-h-screen bg-black text-white">
       <div 
         className="fixed inset-0 bg-cover bg-center bg-no-repeat z-0"
-        style={{ backgroundImage: "url('/src/assets/EventDetailBackground/eventbg.jpeg')" }}
+        style={{ backgroundImage: "url('/EventDetailBackground/eventbg.jpeg')" }}
       >
         <div className="absolute inset-0 bg-black/80"></div>
       </div>
