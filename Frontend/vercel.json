@@ -1,33 +1,25 @@
 {
-  "version": 2,
-  "builds": [
+  
+  "headers": [
     {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "build"
-      }
+      "source": "/.well-known/apple-developer-merchantid-domain-association",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/plain"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "inline"
+        }
+      ]
     }
   ],
+
   "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "https://chill-haven-backend.vercel.app/api/$1"
-    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/static/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "s-maxage=31536000, immutable"
-        }
-      ]
     }
   ]
 }
