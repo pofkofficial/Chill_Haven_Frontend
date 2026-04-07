@@ -52,6 +52,20 @@ export const setAuthToken = (token) => {
   }
 };
 
+// Get all participants for an event
+export const getEventParticipants = (eventId) => {
+  return api.get(`/attendance/event/${eventId}/participants`);
+};
+
+// Check in a participant
+export const checkInParticipant = (eventId, purchaseId, participantIndex) => {
+  return api.post(`/attendance/checkin`, {
+    eventId,
+    purchaseId,
+    participantIndex
+  });
+};
+
 export const getAllTicketPurchases = () => api.get('/purchase/all');
 
 export default api;

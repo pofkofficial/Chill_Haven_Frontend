@@ -31,6 +31,8 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const backend_link = import.meta.env.VITE_BACKEND_LINK || 'http://localhost:5000';
+
   // Close sidebar on mobile when route changes
   useEffect(() => {
     setSidebarOpen(false);
@@ -42,7 +44,7 @@ const AdminDashboard = () => {
       try {
         const [eventsRes, summaryRes] = await Promise.all([
           getAllEvents(),
-          fetch('http://localhost:5000/api/purchase/summary').then(res => res.json())
+          fetch(`${backend_link}/purchase/summary`).then(res => res.json())
         ]);
 
         setEvents(eventsRes.data || []);
